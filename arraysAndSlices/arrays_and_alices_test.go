@@ -1,19 +1,11 @@
 package arraysAndSlices
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestSum(t *testing.T) {
-
-	t.Run("collection of 5 numbers", func(t *testing.T) {
-		numbers := []int{1, 2, 3, 4, 5} // can also use [...]int{1, 2, 3, 4, 5}
-		sum := Sum(numbers)
-		expected := 15
-
-		if sum != expected {
-			t.Errorf("expected '%d' but got '%d' given '%v'", expected, sum, numbers)
-		}
-
-	})
 
 	t.Run("collection of any size", func(t *testing.T) {
 		numbers := []int{1, 2, 3}
@@ -25,4 +17,14 @@ func TestSum(t *testing.T) {
 			t.Errorf("wanted '%d' but got '%d', given '%v'", want, got, numbers)
 		}
 	})
+
+}
+
+func TestSumAll(t *testing.T) {
+	got := SumAll([]int{1, 2}, []int{0, 9})
+	want := []int{3, 9}
+
+	if !reflect.DeepEqual(got, want) { // compares any values
+		t.Errorf("wanted '%d' but got '%d'", want, got)
+	}
 }
