@@ -1,7 +1,5 @@
 package arraysAndSlices
 
-import "fmt"
-
 func Sum(numbers []int) int {
 	total := 0
 
@@ -26,7 +24,6 @@ func SumAllTails(numbersToSum ...[]int) []int {
 
 	for _, numbers := range numbersToSum {
 		tail := numbers[1:]
-		fmt.Println(tail)
 		tailsSums = append(tailsSums, Sum(tail))
 	}
 	return tailsSums
