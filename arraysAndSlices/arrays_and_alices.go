@@ -23,8 +23,14 @@ func SumAllTails(numbersToSum ...[]int) []int {
 	var tailsSums []int
 
 	for _, numbers := range numbersToSum {
-		tail := numbers[1:]
-		tailsSums = append(tailsSums, Sum(tail))
+
+		if len(numbers) == 0 {
+			tailsSums = append(tailsSums, 0)
+		} else {
+			tail := numbers[1:]
+			tailsSums = append(tailsSums, Sum(tail))
+		}
+
 	}
 	return tailsSums
 }
