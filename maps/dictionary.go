@@ -4,7 +4,10 @@ import "errors"
 
 type Dictionary map[string]string
 
-var ErrNotfound = errors.New("could not find the word you wre looking for")
+var (
+	ErrNotfound   = errors.New("could not find the word you wre looking for")
+	ErrWordExists = errors.New("word already exists in dictionary")
+)
 
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
@@ -15,8 +18,20 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
-func (d Dictionary) Add(word, definition string) {
-	d[word] = definition
+func (d Dictionary) Add(word, definition string) error {
+
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotfound:
+		d[word] = definition
+	case nil:
+		return ErrWordExists
+	default:
+		return err
+	}
+
+	return nil
 	// read here to find out why theres no need to use pointers here: https://quii.gitbook.io/learn-go-with-tests/go-fundamentals/maps#pointers-copies-et-al
 }
 
