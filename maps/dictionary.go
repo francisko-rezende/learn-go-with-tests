@@ -1,5 +1,14 @@
 package maps
 
-func Search(dictonary map[string]string, word string) string {
-	return dictonary[word]
+import "errors"
+
+type Dictionary map[string]string
+
+func (d Dictionary) Search(word string) (string, error) {
+	definition, ok := d[word]
+
+	if !ok {
+		return "", errors.New("could not find the word you wre looking for")
+	}
+	return definition, nil
 }
