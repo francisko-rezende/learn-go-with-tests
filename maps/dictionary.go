@@ -8,7 +8,7 @@ const (
 	ErrWordDoesNotExist = DictionaryErr("word already exists in dictionary")
 )
 
-// read here to find more info on why it's cool to use contant errors https://dave.cheney.net/2016/04/07/constant-errors
+// read here to find more info on why it's cool to use contant errors https://dave.cheney.net/2016/04/07/constant-errors we needed to use the type/method bellow so this const thing works
 
 type DictionaryErr string
 
@@ -38,6 +38,10 @@ func (d Dictionary) Edit(word, definition string) error {
 	}
 
 	return nil
+}
+
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
 }
 
 func (d Dictionary) Add(word, definition string) error {
