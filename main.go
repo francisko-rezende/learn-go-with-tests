@@ -8,5 +8,6 @@ import (
 
 func main() {
 	// fmt.Println("Learning go with tests")
-	mocking.Countdown(os.Stdout)
+	sleep := &mocking.DefaultSleeper{}
+	mocking.Countdown(os.Stdout, sleep)
 }
