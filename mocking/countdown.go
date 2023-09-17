@@ -3,6 +3,7 @@ package mocking
 import (
 	"fmt"
 	"io"
+	"os"
 	"time"
 )
 
@@ -11,12 +12,12 @@ type Sleeper interface {
 }
 
 type ConfigurableSleeper struct {
-	duration time.Duration
+	Duration time.Duration
 	sleep    func(time.Duration)
 }
 
 func (c *ConfigurableSleeper) Sleep() {
-	c.sleep(c.duration)
+	c.sleep(c.Duration)
 }
 
 type SpyTime struct {
@@ -54,12 +55,6 @@ func (s *SpySleeper) Sleep() {
 
 // Spies are a kind of mock which can record how a dependency is used. They can record the arguments sent in, how many times it has been called, etc. In our case, we're keeping track of how many times Sleep() is called so we can check it in our test.
 
-type DefaultSleeper struct{}
-
-func (d *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
-}
-
 const countdownStart = 3
 const finalWord = "Go!"
 
@@ -69,4 +64,9 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 		sleeper.Sleep()
 	}
 	fmt.Fprint(out, finalWord)
+}
+
+func SleeperExec() {
+	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
+	Countdown(os.Stdout, sleeper)
 }
