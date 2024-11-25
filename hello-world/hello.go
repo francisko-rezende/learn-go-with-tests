@@ -1,4 +1,4 @@
-package main
+package helloworld
 
 import "fmt"
 
@@ -6,8 +6,9 @@ const (
 	englishHelloPrefix = "hello "
 	spanishHelloPrefix = "hola "
 	frenchHelloPrefix  = "bonjour "
-	spanish            = "Spanish"
-	french             = "French"
+
+	spanish = "Spanish"
+	french  = "French"
 )
 
 func Hello(name, language string) string {
