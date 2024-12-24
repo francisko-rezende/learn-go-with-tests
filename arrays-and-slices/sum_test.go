@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+func checkSliceSums(t testing.TB, got, want []int) {
+	if !slices.Equal(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
 func TestSum(t *testing.T) {
 	t.Run("A collection with any amount of numbers", func(t *testing.T) {
 		numbers := []int{1, 2, 3}
@@ -26,9 +32,7 @@ func TestSumAll(t *testing.T) {
 		got := SumAll(firstSlice, secondSlice)
 		want := []int{3, 9}
 
-		if !slices.Equal(got, want) {
-			t.Errorf("got %v, want %v", got, want)
-		}
+		checkSliceSums(t, got, want)
 	})
 }
 
@@ -40,9 +44,7 @@ func TestSumAllTails(t *testing.T) {
 		got := SumAllTails(firstSlice, secondSlice)
 		want := []int{5, 9}
 
-		if !slices.Equal(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
+		checkSliceSums(t, got, want)
 	})
 
 	t.Run("works on empty slices", func(t *testing.T) {
@@ -52,8 +54,6 @@ func TestSumAllTails(t *testing.T) {
 		got := SumAllTails(firstSlice, secondSlice)
 		want := []int{5, 0}
 
-		if !slices.Equal(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
+		checkSliceSums(t, got, want)
 	})
 }
