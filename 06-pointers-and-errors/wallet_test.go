@@ -1,16 +1,15 @@
 package pointersanderrors
 
 import (
-	"fmt"
 	"testing"
 )
 
 func TestWallet(t *testing.T) {
 	wallet := Wallet{}
-	wallet.Deposit(10)
-	fmt.Printf("address of balance in test is %p \n", &wallet.balance)
+	depositAmount := Bitcoin(10)
+	wallet.Deposit(depositAmount)
 	got := wallet.GetBalance()
-	want := 10
+	want := depositAmount
 
 	if got != want {
 		t.Errorf("got %d want %d", got, want)
