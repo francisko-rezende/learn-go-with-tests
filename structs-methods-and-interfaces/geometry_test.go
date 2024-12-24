@@ -3,20 +3,34 @@ package structsmethodsandinterfaces
 import "testing"
 
 func TestPerimeter(t *testing.T) {
-	got := Perimeter(4.0, 2.0)
+	rectangle := Rectangle{4.0, 2.0}
+	got := Perimeter(rectangle)
 	want := 12.0
 
 	if got != want {
-		t.Errorf("got %.2f want %.2f", got, want)
+		t.Errorf("got %g want %g", got, want)
 	}
 }
 
-// So far, so easy. Now let's create a function called Area(width, height float64) which returns the area of a rectangle.
 func TestArea(t *testing.T) {
-	got := Area(2.0, 2.0)
-	want := 4.0
+	t.Run("rectangles", func(t *testing.T) {
+		rectangle := Rectangle{2.0, 2.0}
+		got := rectangle.Area()
+		want := 4.0
 
-	if got != want {
-		t.Errorf("got %.2f want %.2f", got, want)
-	}
+		if got != want {
+			t.Errorf("got %g want %g", got, want)
+		}
+	})
+
+	t.Run("circles", func(t *testing.T) {
+		circle := Circle{10.0}
+
+		got := circle.Area()
+		want := 314.1592653589793
+
+		if got != want {
+			t.Errorf("got %g want %g", got, want)
+		}
+	})
 }
