@@ -16,7 +16,7 @@ type Circle struct {
 }
 
 func (c Circle) Area() float64 {
-	return math.Pi * math.Pow(c.Radius, 2)
+	return math.Pi * (c.Radius * c.Radius)
 }
 
 func Perimeter(rectangle Rectangle) float64 {
