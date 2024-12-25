@@ -79,12 +79,21 @@ func TestUpdate(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	key := "key"
-	initialDefinition := "initial definition"
-	dictionary := Dictionary{key: initialDefinition}
-	dictionary.Delete(key)
-	_, err := dictionary.Search(key)
-	assertError(t, err, ErrNotFound)
+	t.Run("existing word", func(t *testing.T) {
+		key := "key"
+		initialDefinition := "initial definition"
+		dictionary := Dictionary{key: initialDefinition}
+		err := dictionary.Delete(key)
+		assertError(t, err, nil)
+		_, err = dictionary.Search(key)
+		assertError(t, err, ErrNotFound)
+	})
+
+	t.Run("new word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		err := dictionary.Delete("key")
+		assertError(t, err, ErrWordDoesNotExist)
+	})
 }
 
 func assertDefinition(t testing.TB, dictionary Dictionary, key, definition string) {
