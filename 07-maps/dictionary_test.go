@@ -52,14 +52,30 @@ func TestAdd(t *testing.T) {
 }
 
 func TestUpdate(t *testing.T) {
-	key := "key"
-	initialDefinition := "initial definition"
-	updatedDefinition := "updated definition"
-	dictionary := Dictionary{key: initialDefinition}
+	t.Run("existing word", func(t *testing.T) {
+		key := "key"
+		initialDefinition := "initial definition"
+		updatedDefinition := "updated definition"
+		dictionary := Dictionary{key: initialDefinition}
 
-	dictionary.Update(key, updatedDefinition)
+		err := dictionary.Update(key, updatedDefinition)
 
-	assertDefinition(t, dictionary, key, updatedDefinition)
+		assertError(t, err, nil)
+		assertDefinition(t, dictionary, key, updatedDefinition)
+	})
+
+	t.Run("new word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		key := "key"
+		updatedDefinition := "updated definition"
+		err := dictionary.Update(key, updatedDefinition)
+
+		// if err == nil {
+		// 	t.Fatal("expected an error but didn't get one")
+		// }
+
+		assertError(t, err, ErrWordDoesNotExist)
+	})
 }
 
 func assertDefinition(t testing.TB, dictionary Dictionary, key, definition string) {
