@@ -14,6 +14,10 @@ func (e DictionaryErr) Error() string {
 
 type Dictionary map[string]string
 
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
+}
+
 func (d Dictionary) Update(key, updatedDefinition string) error {
 	_, err := d.Search(key)
 

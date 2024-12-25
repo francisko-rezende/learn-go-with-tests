@@ -78,6 +78,15 @@ func TestUpdate(t *testing.T) {
 	})
 }
 
+func TestDelete(t *testing.T) {
+	key := "key"
+	initialDefinition := "initial definition"
+	dictionary := Dictionary{key: initialDefinition}
+	dictionary.Delete(key)
+	_, err := dictionary.Search(key)
+	assertError(t, err, ErrNotFound)
+}
+
 func assertDefinition(t testing.TB, dictionary Dictionary, key, definition string) {
 	got, err := dictionary.Search(key)
 	want := definition
