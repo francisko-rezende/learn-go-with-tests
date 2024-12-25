@@ -27,12 +27,28 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-	key := "new"
-	definition := "new definition"
-	dictionary.Add(key, definition)
+	t.Run("add new word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		key := "new"
+		definition := "new definition"
+		dictionary.Add(key, definition)
 
-	assertDefinition(t, dictionary, key, definition)
+		assertDefinition(t, dictionary, key, definition)
+	})
+
+	t.Run("add repeated word", func(t *testing.T) {
+		key := "key"
+		definition := "definition"
+		dictionary := Dictionary{key: definition}
+		err := dictionary.Add(key, "new key definition")
+
+		// if err == nil {
+		// 	t.Fatal("expected error but didn't get one")
+		// }
+
+		assertError(t, err, ErrWordExists)
+		assertDefinition(t, dictionary, key, definition)
+	})
 }
 
 func assertDefinition(t testing.TB, dictionary Dictionary, key, definition string) {
