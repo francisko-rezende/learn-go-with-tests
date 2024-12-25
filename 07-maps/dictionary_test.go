@@ -3,7 +3,7 @@ package maps
 import "testing"
 
 func TestSearch(t *testing.T) {
-	dictionary := map[string]string{"test": "test definition"}
+	dictionary := Dictionary{"test": "test definition"}
 	got := Search(dictionary, "test")
 	want := "test definition"
 
