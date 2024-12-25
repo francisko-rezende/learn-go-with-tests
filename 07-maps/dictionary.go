@@ -1,11 +1,16 @@
 package maps
 
+import "errors"
+
 type Dictionary map[string]string
 
-func (d Dictionary) Search(searchTerm string) string {
-	return d[searchTerm]
-}
+var WordNotFoundWarning = "could not find the word you're looking for"
 
-func Search(dictionary map[string]string, searchTerm string) string {
-	return dictionary[searchTerm]
+func (d Dictionary) Search(searchTerm string) (string, error) {
+	definition, ok := d[searchTerm]
+
+	if !ok {
+		return "", errors.New(WordNotFoundWarning)
+	}
+	return definition, nil
 }
