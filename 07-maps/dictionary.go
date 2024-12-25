@@ -4,13 +4,13 @@ import "errors"
 
 type Dictionary map[string]string
 
-var WordNotFoundWarning = "could not find the word you're looking for"
+var ErrNotFound = errors.New("could not find the word you're looking for")
 
 func (d Dictionary) Search(searchTerm string) (string, error) {
 	definition, ok := d[searchTerm]
 
 	if !ok {
-		return "", errors.New(WordNotFoundWarning)
+		return "", ErrNotFound
 	}
 	return definition, nil
 }
