@@ -33,9 +33,9 @@ func (s *SpyCountdownOperations) Write(p []byte) (n int, err error) {
 }
 
 func TestCountdown(t *testing.T) {
-	t.Run("number of calls", func(t *testing.T) {
+	t.Run("prints 3 to Go!", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
-		spySleeper := &SpySleeper{}
+		spySleeper := &SpyCountdownOperations{}
 
 		Countdown(buffer, spySleeper)
 		got := buffer.String()
@@ -47,13 +47,9 @@ Go!`
 		if got != want {
 			t.Errorf("got %s want %s", got, want)
 		}
-
-		if spySleeper.Calls != 3 {
-			t.Errorf("noto enough calls to spySleeper, wanted 3, got %d", spySleeper.Calls)
-		}
 	})
 
-	t.Run("call order", func(t *testing.T) {
+	t.Run("sleep before each print", func(t *testing.T) {
 		spy := &SpyCountdownOperations{}
 
 		Countdown(spy, spy)
