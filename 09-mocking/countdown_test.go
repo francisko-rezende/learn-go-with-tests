@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"slices"
 	"testing"
+	"time"
 )
 
 type SpySleeper struct {
@@ -32,7 +33,27 @@ func (s *SpyCountdownOperations) Write(p []byte) (n int, err error) {
 	return
 }
 
+type SpyTime struct {
+	durationSlept time.Duration
+}
+
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
+
 func TestCountdown(t *testing.T) {
+	t.Run("configurableSleeper", func(t *testing.T) {
+		sleepTime := time.Second * 5
+
+		spyTime := &SpyTime{}
+		sleeper := &ConfigurableSleeper{duration: sleepTime, sleep: spyTime.Sleep}
+		sleeper.Sleep()
+
+		if spyTime.durationSlept != sleepTime {
+			t.Errorf("should have slept for %v but slept for %v", sleepTime, spyTime.durationSlept)
+		}
+	})
+
 	t.Run("prints 3 to Go!", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
 		spySleeper := &SpyCountdownOperations{}
