@@ -46,7 +46,8 @@ func TestCountdown(t *testing.T) {
 		sleepTime := time.Second * 5
 
 		spyTime := &SpyTime{}
-		sleeper := &ConfigurableSleeper{duration: sleepTime, sleep: spyTime.Sleep}
+
+		sleeper := &ConfigurableSleeper{Duration: sleepTime, SleepFunc: spyTime.Sleep}
 		sleeper.Sleep()
 
 		if spyTime.durationSlept != sleepTime {
