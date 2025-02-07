@@ -1,22 +1,26 @@
 package selectchapter
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 )
 
 func Racer(slowUrl, fastUrl string) (winner string) {
-	startSlowUrl := time.Now()
-	http.Get(slowUrl)
-	slowUrlDuration := time.Since(startSlowUrl)
+	slowUrlDuration := measureResponseTime(slowUrl)
+	fastUrlDuration := measureResponseTime(fastUrl)
 
-	startFastUrl := time.Now()
-	http.Get(fastUrl)
-	fastUrlDuration := time.Since(startFastUrl)
+	fmt.Println(slowUrlDuration, fastUrlDuration)
 
 	if slowUrlDuration < fastUrlDuration {
 		return slowUrl
 	}
 
 	return fastUrl
+}
+
+func measureResponseTime(url string) time.Duration {
+	start := time.Now()
+	http.Get(url)
+	return time.Since(start)
 }
