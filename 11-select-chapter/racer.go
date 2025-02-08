@@ -1,15 +1,19 @@
 package selectchapter
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 )
 
-func Racer(slowUrl, fastUrl string) (winner string) {
+func Racer(slowUrl, fastUrl string) (winner string, err error) {
 	select {
 	case <-ping(slowUrl):
-		return slowUrl
+		return slowUrl, nil
 	case <-ping(fastUrl):
-		return fastUrl
+		return fastUrl, nil
+	case <-time.After(10 * time.Second):
+		return "", fmt.Errorf("timed out waiting for %s and %s", slowUrl, fastUrl)
 	}
 }
 
