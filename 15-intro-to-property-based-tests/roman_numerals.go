@@ -1,5 +1,12 @@
 package introtopropertybasedtests
 
 func ConvertToRoman(arabicNumber int) string {
-	return "I"
+	switch arabicNumber {
+	case 1:
+		return "I"
+	case 2:
+		return "II"
+	}
+
+	return ""
 }
