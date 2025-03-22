@@ -1,13 +1,13 @@
 package introtopropertybasedtests
 
+import "strings"
+
 func ConvertToRoman(arabicNumber int) string {
-	if arabicNumber == 3 {
-		return "III"
+	var result strings.Builder
+
+	for i := 0; i < arabicNumber; i++ {
+		result.WriteString("I")
 	}
 
-	if arabicNumber == 2 {
-		return "II"
-	}
-
-	return "I"
+	return result.String()
 }
