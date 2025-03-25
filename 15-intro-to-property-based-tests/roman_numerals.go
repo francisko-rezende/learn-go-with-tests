@@ -5,17 +5,18 @@ import "strings"
 func ConvertToRoman(arabicNumber int) string {
 	var result strings.Builder
 
-	for i := arabicNumber; i > 0; i-- {
-		if i == 5 {
+	for arabicNumber > 0 {
+		switch {
+		case arabicNumber > 4:
 			result.WriteString("V")
-			break
-		}
-
-		if i == 4 {
+			arabicNumber -= 5
+		case arabicNumber > 3:
 			result.WriteString("IV")
-			break
+			arabicNumber -= 4
+		default:
+			result.WriteString("I")
+			arabicNumber--
 		}
-		result.WriteString("I")
 	}
 
 	return result.String()
