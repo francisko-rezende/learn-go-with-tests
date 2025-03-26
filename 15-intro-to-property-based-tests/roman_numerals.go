@@ -7,6 +7,9 @@ func ConvertToRoman(arabicNumber int) string {
 
 	for arabicNumber > 0 {
 		switch {
+		case arabicNumber > 8:
+			result.WriteString("IX")
+			arabicNumber -= 9
 		case arabicNumber > 4:
 			result.WriteString("V")
 			arabicNumber -= 5
