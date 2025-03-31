@@ -24,6 +24,6 @@ func TestSecondHandAt30Seconds(t *testing.T) {
 	got := maths.SecondHand(tm)
 
 	if got != want {
-		t.Errorf("got %y, wanted %v", got, want)
+		t.Errorf("got %v, wanted %v", got, want)
 	}
 }
