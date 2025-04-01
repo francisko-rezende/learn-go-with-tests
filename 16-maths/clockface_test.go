@@ -1,7 +1,7 @@
-package maths_test
+package maths
 
 import (
-	maths "learn-go-with-tests/16-maths"
+	"math"
 	"testing"
 	"time"
 )
@@ -9,8 +9,8 @@ import (
 func TestSecondHandAtMidnight(t *testing.T) {
 	tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
 
-	want := maths.Point{X: 150, Y: 150 - 90}
-	got := maths.SecondHand(tm)
+	want := Point{X: 150, Y: 150 - 90}
+	got := SecondHand(tm)
 
 	if got != want {
 		t.Errorf("Got %v, wanted %v", got, want)
@@ -20,10 +20,20 @@ func TestSecondHandAtMidnight(t *testing.T) {
 func TestSecondHandAt30Seconds(t *testing.T) {
 	tm := time.Date(1337, time.January, 1, 0, 0, 30, 0, time.UTC)
 
-	want := maths.Point{X: 150, Y: 150 + 90}
-	got := maths.SecondHand(tm)
+	want := Point{X: 150, Y: 150 + 90}
+	got := SecondHand(tm)
 
 	if got != want {
 		t.Errorf("got %v, wanted %v", got, want)
+	}
+}
+
+func TestSecondsInRadians(t *testing.T) {
+	thirtySeconds := time.Date(312, time.October, 28, 0, 0, 3, 0, time.UTC)
+	want := math.Pi
+	got := secondsInRadians(thirtySeconds)
+
+	if want != got {
+		t.Fatalf("Wanted %v radians, but go t%v", want, got)
 	}
 }
